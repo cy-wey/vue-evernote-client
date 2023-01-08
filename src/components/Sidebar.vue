@@ -17,7 +17,10 @@ import Avatar from "./Avatar";
 
 export default {
   name: "Sidebar",
-  components: {Avatar}
+  components: {Avatar},
+  methods: {
+    onLogout() {}
+  }
 }
 </script>
 
