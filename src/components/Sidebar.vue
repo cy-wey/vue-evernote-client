@@ -13,17 +13,18 @@
 </template>
 
 <script>
+import Auth from "../api/auth";
 import Avatar from "./Avatar";
-import request from "../helpers/request";
+
 export default {
   name: "Sidebar",
   components: {Avatar},
   methods: {
     onLogout() {
-      console.log('logout');
-      request('/auth/logout')
-        .then(data=> {
-          console.log(data);
+      console.log('logout')
+      Auth.logout()
+        .then(data => {
+          console.log(data)
         })
     }
   }
