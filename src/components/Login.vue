@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import Auth from "../api/auth";
+import Auth from "../apis/auth";
 
 Auth.getInfo().then(data => {
   console.log(data);

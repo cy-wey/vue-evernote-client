@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Auth from "../api/auth";
+import Auth from "../apis/auth";
 import Avatar from "./Avatar";
 
 export default {
