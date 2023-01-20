@@ -5,17 +5,17 @@
       <div class="note-empty" v-show="false">请选择笔记</div>
       <div class="note-detail-ct" v-show="true">
         <div class="note-bar">
-          <span>创建日期：2天前</span>
-          <span>更新日期：1分钟前</span>
-          <span>已保存</span>
+          <span>创建日期：{{curNote.createdAtFriendly}}</span>
+          <span>更新日期：{{curNote.updatedAtFriendly}}</span>
+          <span>{{curNote.statusText}}</span>
           <span class="iconfont icon-delete"/>
           <span class="iconfont icon-fullscreen"/>
         </div>
         <div class="note-title">
-          <input type="text" placeholder="输入标题">
+          <input type="text" :value="curNote.title" placeholder="输入标题">
         </div>
         <div class="editor">
-          <textarea v-show="true" placeholder="输入内容，支持 markdown"/>
+          <textarea v-show="true" :value="curNote.content" placeholder="输入内容，支持 markdown"/>
           <div class="preview markdown-body" v-show="false"></div>
         </div>
       </div>
@@ -32,7 +32,13 @@ export default {
 
   data() {
     return {
-      msg: '笔记本详请页'
+      curNote: {
+        title:'我的笔记',
+        content:'我的笔记内容',
+        createdAtFriendly: '1天前',
+        updatedAtFriendly: '刚刚',
+        statusText:'未更新'
+      }
     }
   },
   created() {
