@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     handleCommand(notebookId) {
-      if (notebookId == '/trash') {
+      if (notebookId == 'trash') {
          return this.$router.push({path:'/trash'})
       }
       this.curBook = this.notebooks.find(notebook =>　notebook.id == notebookId)
