@@ -34,6 +34,16 @@ export default {
     return request(URL.DELETE.replace(':noteId', noteId), 'DELETE')
   },
   addNote({notebookId}, {title = '', content = ''} = {title: '', content: ''}) {
-    return request(URL.ADD.replace(':notebookId', notebookId), 'POST', {title})
+    return new Promise((resolve, reject) => {
+      request(URL.ADD.replace(':notebookId', notebookId), 'POST', {title})
+        .then(res => {
+          res.data.createdAtFriendly = friendlyDate(res.data.createdAt)
+          res.data.updatedAtFriendly = friendlyDate(res.data.updatedAt)
+          resolve(res)
+        }).catch(err => {
+        reject(err)
+      })
+    })
+    //return request(URL.ADD.replace(':notebookId', notebookId), 'POST', {title})
   }
 }
