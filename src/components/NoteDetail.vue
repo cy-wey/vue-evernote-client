@@ -1,8 +1,8 @@
 <template>
   <div id="note" class="detail">
     <note-sidebar></note-sidebar>
-    <h1>notebookId:{{ $route.query.notebookId }}</h1>
-    <h1>noteId:{{ $route.query.noteId }}</h1>
+    <h1></h1>
+    <h1></h1>
   </div>
 </template>
 
