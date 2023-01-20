@@ -29,7 +29,7 @@
 import Notebooks from "../apis/notebooks";
 import Notes from "../apis/notes";
 import Bus from "../helpers/bus";
-window.Notes = Notes
+
 export default {
   name: "NoteSidebar",
   created() {
