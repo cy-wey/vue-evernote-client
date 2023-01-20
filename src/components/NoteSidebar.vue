@@ -41,6 +41,7 @@ export default {
       return Notes.getAll({notebookId:this.curBook.id})
     }).then(res => {
       this.notes = res.data
+      this.$emit('update:notes',this.notes)
     })
   },
   data() {
@@ -59,6 +60,7 @@ export default {
       Notes.getAll({notebookId})
         .then(res=>{
           this.notes = res.data
+          this.$emit('update:notes',this.notes)
         })
     }
   }
