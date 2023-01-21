@@ -40,7 +40,9 @@
 import MarkdownIt from 'markdown-it'
 import Auth from "../apis/auth";
 import {mapState, mapGetters, mapMutations, mapActions} from "vuex";
+import Trash from "../apis/trash";
 
+window.Trash = Trash
 let md = new MarkdownIt()
 
 export default {
