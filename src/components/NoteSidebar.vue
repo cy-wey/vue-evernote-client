@@ -59,7 +59,7 @@ export default {
       if (notebookId == 'trash') {
          return this.$router.push({path:'/trash'})
       }
-      this.$store.commit('setCurBook',{curBookId:this.$route.query.notebookId})
+      this.$store.commit('setCurBook',{curBookId:notebookId})
       this.getNotes({notebookId})
     },
     onAddNote() {
