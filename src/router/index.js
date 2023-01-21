@@ -5,6 +5,13 @@ import NoteDetail from "../components/NoteDetail";
 import Notebooks from "../components/NotebookList";
 import TrashDetail from "../components/TrashDetail";
 
+//获取原型对象上的Replace函数
+const originalReplace = Router.prototype.replace
+//修改原型对象中的Replace方法
+Router.prototype.replace = function replace(location) {
+  return originalReplace.call(this, location).catch(err => err)
+}
+
 Vue.use(Router)
 
 export default new Router({
