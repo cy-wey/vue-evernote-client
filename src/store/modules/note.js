@@ -24,7 +24,7 @@ const mutations = {
     state.notes.unshift(payload.note)
   },
   updateNote(state, payload) {
-    let note = state.notes.find(notebook => note.id === payload.noteId) || {}
+    let note = state.notes.find(note => note.id === payload.noteId) || {}
     note.title = payload.title
     note.content = payload.content
   },

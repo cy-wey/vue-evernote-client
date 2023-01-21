@@ -73,11 +73,9 @@ export default {
     onUpdateNote: _.debounce(function () {
       this.updateNote({ noteId: this.curNote.id, title: this.curNote.title, content: this.curNote.content })
         .then(data => {
-          console.log(1)
           this.statusText = '已保存'
         }).catch(data => {
         this.statusText = '保存出错'
-        console.log(2)
       })
     }, 300),
 
