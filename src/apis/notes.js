@@ -13,12 +13,12 @@ export default {
     return new Promise((resolve, reject) => {
       request(URL.GET.replace(':notebookId', notebookId))
         .then(res => {
-          res.data = res.data.map(note => {
+          let notes = res.data.map(note => {
             note.createdAtFriendly = friendlyDate(note.createdAt)
             note.updatedAtFriendly = friendlyDate(note.updatedAt)
             return note
           }).sort((note1, note2) => {
-            return note1.updatedAt < note2.updatedAt ? 1 : -1
+            return note1.updatedAt < note2.updatedAt
           })
           resolve(res)
         }).catch(err => {
