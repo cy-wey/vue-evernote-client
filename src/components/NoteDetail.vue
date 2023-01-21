@@ -8,8 +8,8 @@
           <span>创建日期：{{ curNote.createdAtFriendly }}</span>
           <span>更新日期：{{ curNote.updatedAtFriendly }}</span>
           <span>{{ statusText }}</span>
-          <span class="iconfont icon-delete" @click="onDeleteNote"/>
-          <span class="iconfont icon-fullscreen" @click="isShowPreview = !isShowPreview"/>
+          <span class="iconfont icon-delete" @click="onDeleteNote" title="删除笔记"/>
+          <span class="iconfont" :class="isShowPreview?'icon-edit':'icon-eye'"  @click="isShowPreview = !isShowPreview" :title="isShowPreview?'编辑模式':'预览模式'"/>
         </div>
         <div class="note-title">
           <input type="text" v-model:value="curNote.title" @input="onUpdateNote" @keydown="statusText='正在输入...'"
@@ -46,7 +46,7 @@ export default {
     }
   },
   created() {
-    this.checkLogin({path:'/login'})
+    this.checkLogin({path: '/login'})
   },
   computed: {
     ...mapGetters([
@@ -68,7 +68,7 @@ export default {
       'checkLogin'
     ]),
     onUpdateNote: _.debounce(function () {
-      this.updateNote({ noteId: this.curNote.id, title: this.curNote.title, content: this.curNote.content })
+      this.updateNote({noteId: this.curNote.id, title: this.curNote.title, content: this.curNote.content})
         .then(data => {
           this.statusText = '已保存'
         }).catch(data => {
@@ -78,13 +78,21 @@ export default {
 
     onDeleteNote() {
       this.deleteNote({noteId: this.curNote.id})
-        .then(data => {
-          this.$router.replace({path: '/note'})
+        .then(() => {
+          this.setCurNote()
+          this.$router.replace({
+            path: '/note',
+            query: {
+              noteId: this.curNote.id,
+              notebookId: this.$route.query.notebookId
+            }
+          })
+
         })
     }
   },
   beforeRouteUpdate(to, from, next) {
-    this.setCurNote({curNoteId:to.query.noteId})
+    this.setCurNote({curNoteId: to.query.noteId})
     next()
   }
 }

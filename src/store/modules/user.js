@@ -20,15 +20,20 @@ const actions = {
   login({commit}, {username, password}) {
     return Auth.login({username, password})
       .then(res => {
-        console.log(res);
         commit('setUser', {user: res.data})
       })
   },
   register({commit}, {username, password}) {
     return Auth.register({username, password})
       .then(res => {
-        console.log(res);
         commit('setUser', {user: res.data})
+      })
+  },
+  logout({commit},payload = {path:'/'}) {
+    return Auth.logout()
+      .then(res=> {
+        commit('setUser',{user:null})
+        router.push(payload)
       })
   },
   checkLogin({commit,state}, payload) {

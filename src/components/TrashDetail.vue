@@ -17,17 +17,17 @@
     </div>
     <div class="note-detail">
       <div class="note-bar">
-        <span>创建日期: {{curTrashNote.createdAtFriendly}}</span>
+        <span>创建日期: {{ curTrashNote.createdAtFriendly }}</span>
         <span>|</span>
-        <span>更新日期: {{curTrashNote.updatedAtFriendly}}</span>
+        <span>更新日期: {{ curTrashNote.updatedAtFriendly }}</span>
         <span>|</span>
-        <span>所属笔记本: {{belongTo}}</span>
+        <span>所属笔记本: {{ belongTo }}</span>
 
         <a class="btn action" @click="onRevert">恢复</a>
         <a class="btn action" @click="onDelete">彻底删除</a>
       </div>
       <div class="note-title">
-        <span>{{curTrashNote.title}}</span>
+        <span>{{ curTrashNote.title }}</span>
       </div>
       <div class="editor">
         <div class="preview markdown-body" v-html="compiledMarkdown"></div>
@@ -48,11 +48,15 @@ export default {
     return {}
   },
   created() {
-    this.checkLogin({path:'/login'})
+    this.checkLogin({path: '/login'})
     this.getNotebooks()
     this.getTrashNotes()
       .then(() => {
-        this.setCurTrashNote({curTrashNoteId:this.$route.query.noteId})
+        this.setCurTrashNote({curTrashNoteId: this.$route.query.noteId})
+        this.$router.replace({
+          path: '/trash',
+          query: {noteId: this.curTrashNote.id}
+        })
       })
   },
   computed: {
@@ -65,7 +69,7 @@ export default {
       return md.render(this.curTrashNote.content || '')
     }
   },
-  methods:{
+  methods: {
     ...mapMutations([
       'setCurTrashNote'
     ]),
@@ -77,17 +81,34 @@ export default {
       'getNotebooks'
     ]),
     onRevert() {
-      console.log('revert');
       this.revertTrashNote({noteId: this.curTrashNote.id})
-
+        .then(() => {
+          this.setCurTrashNote()
+          this.$router.replace({
+            path: '/trash',
+            query: {noteId: this.curTrashNote.id}
+          })
+        })
     },
     onDelete() {
-      this.deleteTrashNote({noteId: this.curTrashNote.id})
-      console.log('delete');
+      this.$confirm('删除后将无法恢复', '确定删除', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.deleteTrashNote({noteId: this.curTrashNote.id})
+          .then(() => {
+            this.setCurTrashNote()
+            this.$router.replace({
+              path: '/trash',
+              query: {noteId: this.curTrashNote.id}
+            })
+          })
+      })
     }
   },
   beforeRouteUpdate(to, from, next) {
-    this.setCurTrashNote({curTrashNoteId:to.query.noteId})
+    this.setCurTrashNote({curTrashNoteId: to.query.noteId})
     next()
   }
 }
@@ -104,7 +125,7 @@ export default {
   flex: 1;
 
   .note-bar {
-    .action{
+    .action {
       float: right;
       margin-left: 10px;
       padding: 2px 4px;
