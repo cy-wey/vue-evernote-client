@@ -33,11 +33,7 @@ export default {
     return {}
   },
   created() {
-    Auth.getInfo().then(res => {
-      if (!res.isLogin) {
-        this.$router.push({path: '/login'})
-      }
-    })
+   this.checkLogin({path:'/login'})
     this.$store.dispatch('getNotebooks')
   },
   computed: {
@@ -48,7 +44,8 @@ export default {
       'getNotebooks',
       'addNotebook',
       'updateNotebook',
-      'deleteNotebook'
+      'deleteNotebook',
+      "checkLogin"
     ]),
     onCreate() {
       this.$prompt('请输入笔记本标题', '创建笔记本', {
