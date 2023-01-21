@@ -40,66 +40,55 @@
 import MarkdownIt from 'markdown-it'
 import Auth from "../apis/auth";
 import {mapState, mapGetters, mapMutations, mapActions} from "vuex";
-import Trash from "../apis/trash";
 
-window.Trash = Trash
 let md = new MarkdownIt()
 
 export default {
   data() {
-    return {
-      msg: '回收站',
-      curTrashNote: {
-        id:3,
-        title:'我的笔记',
-        content:'## hello',
-        createdAtFriendly:'2小时前',
-        updatedAtFriendly:'刚刚'
-      },
-      belongTo:'我的笔记本',
-      trashNotes:[{
-        id:1,
-        title:'我的笔记1',
-        content:'## hello',
-        createdAtFriendly:'1小时前',
-        updatedAtFriendly:'刚刚'
-      },
-        {
-          id:2,
-          title:'我的笔记2',
-          content:'## hello',
-          createdAtFriendly:'2小时前',
-          updatedAtFriendly:'刚刚'
-        },
-        {
-          id:3,
-          title:'我的笔记3',
-          content:'## hello',
-          createdAtFriendly:'3小时前',
-          updatedAtFriendly:'刚刚'
-        },
-
-      ]
-    }
+    return {}
   },
   created() {
     this.checkLogin({path:'/login'})
+    this.getNotebooks()
+    this.getTrashNotes()
+      .then(() => {
+        this.setCurTrashNote({curTrashNoteId:this.$route.query.noteId})
+      })
   },
   computed: {
+    ...mapGetters([
+      'trashNotes',
+      'curTrashNote',
+      'belongTo'
+    ]),
     compiledMarkdown() {
       return md.render(this.curTrashNote.content || '')
     }
   },
   methods:{
+    ...mapMutations([
+      'setCurTrashNote'
+    ]),
     ...mapActions([
-      'checkLogin'
+      'checkLogin',
+      'deleteTrashNote',
+      'revertTrashNote',
+      'getTrashNotes',
+      'getNotebooks'
     ]),
     onRevert() {
       console.log('revert');
+      this.revertTrashNote({noteId: this.curTrashNote.id})
+
     },
     onDelete() {
+      this.deleteTrashNote({noteId: this.curTrashNote.id})
       console.log('delete');
     }
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.setCurTrashNote({curTrashNoteId:to.query.noteId})
+    next()
   }
 }
 </script>
