@@ -2,6 +2,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+
   .note-detail-ct {
     height: 100%;
   }
@@ -40,22 +41,27 @@
   .note-title {
     input, span {
       display: inline-block;
-      width: 100%;
       border: none;
       outline: none;
       font-size: 30px;
-      padding: 10px 20px;
+      padding: 20px 0;
+      margin: 0 20px;
+      width: calc(100% - 40px);
+      border-bottom: 1px solid #ccc;
+      z-index: 1;
     }
   }
 
   .editor {
-    height: ~"calc(100% - 84px)";
+    height: ~"calc(100% - 104px)";
     position: relative;
+
     .vue-codemirror {
       height: 100%;
+
       /deep/ .CodeMirror {
         height: 100%;
-        padding: 16px;
+        padding: 0 16px;
         font-size: 18px;
         line-height: 30px;
         font-family: -apple-system, BlinkMacSystemFont, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -74,14 +80,11 @@
     width: 100%;
     height: 100%;
     padding: 20px;
-    overflow: scroll;
-    overflow-x: hidden;
     line-height: 30px;
     font-size: 16px;
+    overflow-y: auto;
     font-family: -apple-system, BlinkMacSystemFont, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
-
   }
-
 
   textarea {
     border: none;
@@ -90,5 +93,4 @@
     font-size: 14px;
     font-family: 'Monaco', Courier monospace;
   }
-
 }
