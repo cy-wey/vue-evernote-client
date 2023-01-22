@@ -2,7 +2,6 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-
   .note-detail-ct {
     height: 100%;
   }
@@ -44,14 +43,30 @@
       width: 100%;
       border: none;
       outline: none;
-      font-size: 18px;
+      font-size: 30px;
       padding: 10px 20px;
     }
   }
 
   .editor {
-    height: ~"calc(100% - 70px)";
+    height: ~"calc(100% - 84px)";
     position: relative;
+    .vue-codemirror {
+      height: 100%;
+      /deep/ .CodeMirror {
+        height: 100%;
+        padding: 16px;
+        font-size: 18px;
+        line-height: 30px;
+        font-family: -apple-system, BlinkMacSystemFont, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+
+      /deep/ .CodeMirror pre.CodeMirror-placeholder {
+        font-size: 18px;
+        font-family: 'Monaco', Courier monospace;
+        color: #757575;
+      }
+    }
   }
 
   textarea, .preview {
@@ -59,6 +74,32 @@
     width: 100%;
     height: 100%;
     padding: 20px;
+    overflow: scroll;
+    overflow-x: hidden;
+    line-height: 30px;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+
+    /deep/ p {
+      padding-bottom: 20px;
+      code {
+        color: #c7254e;
+        background: #f2f2f2;
+        padding: 2px 4px;
+        font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+      }
+    }
+
+    /deep/ Pre{
+        background: #282c34;
+        padding: 10px;
+    }
+  }
+
+  /deep/ h1,/deep/h2,/deep/h3,/deep/h4,/deep/ h5 {
+    border: 1px solid red;
+    padding-bottom: 16px;
   }
 
   textarea {
@@ -69,7 +110,4 @@
     font-family: 'Monaco', Courier monospace;
   }
 
-  code {
-    color: #f66;
-  }
 }

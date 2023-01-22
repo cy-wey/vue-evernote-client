@@ -21,7 +21,9 @@
                       @input="onUpdateNote" @inputRead="statusText='正在输入...'"></codemirror>
           <!--          <textarea v-show="isShowPreview" v-model:value="curNote.content" @input="onUpdateNote"-->
           <!--                    @keydown="statusText='正在输入...'" placeholder="输入内容，支持 markdown"/>-->
-          <div class="preview markdown-body" v-html="previewContent" v-show="isShowPreview"/>
+
+          <div class="preview markdown-body" v-html="previewContent" v-show="isShowPreview"></div>
+
         </div>
       </div>
     </div>
@@ -29,20 +31,65 @@
 </template>
 
 <script>
-import Auth from "../apis/auth";
 import noteSidebar from "./NoteSidebar";
-import Bus from "../helpers/bus"
 import _ from 'lodash';
-import Notes from "../apis/notes";
 import MarkdownIt from 'markdown-it'
 import {codemirror} from 'vue-codemirror'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/mode/markdown/markdown.js'
 import 'codemirror/theme/neat.css'
+import 'codemirror/addon/display/placeholder.js'
 import {mapState, mapGetters, mapMutations, mapActions} from "vuex";
+import hljs from "highlight.js/lib/core";
+import "highlight.js/styles/github-dark.css";
 
+import bash from 'highlight.js/lib/languages/bash'
+import javascript from 'highlight.js/lib/languages/javascript';
+import typescript from 'highlight.js/lib/languages/typescript';
+import java from 'highlight.js/lib/languages/java';
+import sql from 'highlight.js/lib/languages/sql';
+import nginx from 'highlight.js/lib/languages/nginx';
+import json from 'highlight.js/lib/languages/json';
+import yaml from 'highlight.js/lib/languages/yaml';
+import xml from 'highlight.js/lib/languages/xml';
+import shell from 'highlight.js/lib/languages/shell'
 
-let md = new MarkdownIt()
+hljs.registerLanguage('bash', bash)
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('typescript', typescript);
+hljs.registerLanguage('java', java);
+hljs.registerLanguage('sql', sql);
+hljs.registerLanguage('nginx', nginx);
+hljs.registerLanguage('json', json);
+hljs.registerLanguage('yaml', yaml);
+hljs.registerLanguage('xml', xml);
+hljs.registerLanguage('shell', shell);
+
+let md = new MarkdownIt({
+  html: true,
+  linkify: true,
+  breaks: true,
+  xhtmlOut: true,
+  typographer: true,
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return (
+          '<pre class="hljs"><code>' +
+          hljs.highlight(lang, str, true).value +
+          "</code></pre>"
+        );
+      } catch (__) { }
+    }
+
+    return (
+      '<pre class="hljs"><code>' +
+      md.utils.escapeHtml(str) +
+      "</code></pre>"
+    );
+  },
+})
+
 export default {
   components: {
     noteSidebar,
@@ -59,6 +106,8 @@ export default {
         theme: 'neat',
         lineNumbers: false,
         line: true,
+        lineWrapping: true,
+        placeholder:'输入内容，支持 markdown'
         // more codemirror options, 更多 codemirror 的高级配置...
       }
     }
@@ -124,6 +173,10 @@ export default {
   align-items: stretch;
   background: #fff;
   flex: 1;
+
+  p {
+    border: 1px solid red;
+  }
 }
 
 </style>

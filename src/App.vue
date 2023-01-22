@@ -1,12 +1,13 @@
 <template>
   <div id="app">
     <sidebar/>
-     <router-view/>
+    <router-view/>
   </div>
 </template>
 
 <script>
 import sidebar from "./components/Sidebar";
+
 export default {
   name: 'App',
   components: {
@@ -16,19 +17,20 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 /*@import '//at.alicdn.com/t/font_496303_kqrjhri8l25d0a4i.css';*/
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-html,body,#app {
+
+html, body, #app {
   height: 100%;
 }
 
 body {
-  font-family: 'Avenir',Helvatica,Arial,sans-serif;
+  font-family: 'Avenir', Helvatica, Arial, sans-serif;
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -40,7 +42,7 @@ a {
   color: #444;
 }
 
-ul,li {
+ul, li {
   list-style: none;
 }
 
@@ -59,4 +61,6 @@ ul,li {
   display: flex;
   align-items: stretch;
 }
+
+
 </style>
