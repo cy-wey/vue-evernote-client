@@ -45,6 +45,7 @@ import {mapState, mapGetters, mapMutations, mapActions} from "vuex";
 import {inject} from "vue";
 
 import {md} from '../lib/markdown-it'
+
 export default {
   setup() {
     const menuVisible = inject('menuVisible')
@@ -99,7 +100,7 @@ export default {
         })
     },
     onDelete() {
-      this.menuVisible = true;
+
       this.$confirm('删除后将无法恢复', '确定删除', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -109,9 +110,11 @@ export default {
           .then(() => {
             this.setCurTrashNote()
             this.$router.replace({
-              path: '/trash',
-              query: {noteId: this.curTrashNote.id}
-            })
+                path: '/trash',
+                query: {noteId: this.curTrashNote.id}
+              }
+            )
+            this.menuVisible = true
           })
       })
     }

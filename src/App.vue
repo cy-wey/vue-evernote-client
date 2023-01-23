@@ -22,7 +22,7 @@ export default {
     provide("isMobile", isMobile); // set
     router.afterEach(() => {
       if (width <= 800)
-      isMobile.value = true;
+        isMobile.value = true;
     })
   }
 
@@ -76,8 +76,7 @@ ul, li {
 
 .el-message-box {
   @media (max-width: 800px) {
-    width: 80%;
-    height: 16%;
+    width: 80% !important;
   }
 }
 

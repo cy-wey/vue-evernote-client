@@ -102,7 +102,6 @@ export default {
     }, 3000),
 
     onDeleteNote() {
-      this.menuVisible = true;
       this.deleteNote({noteId: this.curNote.id})
         .then(() => {
           this.setCurNote()
@@ -113,7 +112,7 @@ export default {
               notebookId: this.$route.query.notebookId
             }
           })
-
+          this.menuVisible = true;
         })
     }
   },
