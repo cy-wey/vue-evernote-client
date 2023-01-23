@@ -41,12 +41,10 @@
 </template>
 
 <script>
-import MarkdownIt from 'markdown-it'
 import {mapState, mapGetters, mapMutations, mapActions} from "vuex";
 import {inject} from "vue";
 
-let md = new MarkdownIt()
-
+import {md} from '../lib/markdown-it'
 export default {
   setup() {
     const menuVisible = inject('menuVisible')
@@ -100,6 +98,7 @@ export default {
         })
     },
     onDelete() {
+      this.menuVisible = true;
       this.$confirm('删除后将无法恢复', '确定删除', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
