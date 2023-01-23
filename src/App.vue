@@ -7,11 +7,23 @@
 
 <script>
 import sidebar from "./components/Sidebar";
+import router from "./router/index";
+import {provide, ref} from 'vue'
 
 export default {
   name: 'App',
   components: {
     sidebar
+  }, setup() {
+    const width = document.documentElement.clientWidth;
+    const menuVisible = ref(true);
+    const isMobile = ref(width <= 800 ? true : false)
+    provide("menuVisible", menuVisible); // set
+    provide("isMobile", isMobile); // set
+    router.afterEach(() => {
+      if (width <= 800)
+      isMobile.value = true;
+    })
   }
 
 }
@@ -60,6 +72,13 @@ ul, li {
 #app {
   display: flex;
   align-items: stretch;
+}
+
+.el-message-box {
+  @media (max-width: 800px) {
+    width: 80%;
+    height: 16%;
+  }
 }
 
 

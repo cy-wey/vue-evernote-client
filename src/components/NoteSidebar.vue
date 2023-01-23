@@ -1,5 +1,5 @@
 <template>
-  <div class="note-sidebar">
+  <div v-if="!isMobile || menuVisible" class="note-sidebar">
     <span class="btn add-note" @click="onAddNote">添加笔记</span>
     <el-dropdown class="notebook-title" @command="handleCommand" placement="bottom">
     <span class="el-dropdown-link">
@@ -15,8 +15,8 @@
       <div>标题</div>
     </div>
     <ul class="notes">
-      <li v-for="note in notes">
-        <router-link :to="`/note?noteId=${note.id}&notebookId=${curBook.id}`">
+      <li v-for="note in notes" @click="menuVisible = false">
+        <router-link  :to="`/note?noteId=${note.id}&notebookId=${curBook.id}`">
           <span class="date">{{ note.updatedAtFriendly }}</span>
           <span class="title">{{ note.title }}</span>
         </router-link>
@@ -27,8 +27,14 @@
 
 <script>
 import {mapState, mapGetters, mapMutations, mapActions} from "vuex";
+import {inject} from "vue";
 
 export default {
+  setup() {
+    const menuVisible = inject('menuVisible')
+    const isMobile = inject('isMobile')
+    return {menuVisible,isMobile}
+  },
   name: "NoteSidebar",
   created() {
     this.getNotebooks()

@@ -8,7 +8,7 @@
             <h3 @click="showRegister">创建账户</h3>
             <transition name="side">
               <div v-bind:class="{show: isShowRegister}" class="register">
-                <input type="text" v-model="register.username" placeholder="用户名">
+                <input type="text" v-model="register.username" placeholder="用户名" >
                 <input type="password" v-model="register.password" placeholder="密码">
                 <p v-bind:class="{error: register.isError}">{{ register.notice }}</p>
                 <div class="button" @click="onRegister">创建账号</div>
@@ -39,8 +39,8 @@ export default {
       isShowLogin: true,
       isShowRegister: false,
       login: {
-        username: '',
-        password: '',
+        username: 'fnhdhbnck',
+        password: '123456',
         notice: '请输入用户名和密码',
         isError: false
       },
@@ -171,9 +171,10 @@ export default {
     width: 270px;
     border-left: 1px solid #ccc;
     overflow: hidden;
-    flex-grow: 1;
+
     @media(max-width: 800px) {
       width: 100%;
+      flex-grow: 1;
     }
     h3 {
       padding: 10px 20px;

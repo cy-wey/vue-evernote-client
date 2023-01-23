@@ -1,9 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from "../components/Login";
-import NoteDetail from "../components/NoteDetail";
-import Notebooks from "../components/NotebookList";
-import TrashDetail from "../components/TrashDetail";
 
 //获取原型对象上的Replace函数
 const originalReplace = Router.prototype.replace
@@ -16,22 +12,22 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-
     {
-      path: '/login',
-      component: Login
+      path: '/',
+      alias: '/notebooks',
+      component:() => import('@/components/NotebookList.vue')
     },
     {
-      path: '/notebooks',
-      component: Notebooks
+      path: '/login',
+      component: ()=> import("@/components/Login.vue")
     },
     {
       path: '/note',
-      component: NoteDetail
+      component: ()=> import("@/components/NoteDetail.vue")
     },
     {
       path: '/trash',
-      component: TrashDetail
+      component:  ()=> import("@/components/TrashDetail.vue")
     }
   ]
 })

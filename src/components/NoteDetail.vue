@@ -1,10 +1,13 @@
 <template>
   <div id="note" class="detail">
     <note-sidebar @update:notes="val => notes = val"/>
-    <div class="note-detail">
+    <div v-if="!isMobile || !menuVisible" class="note-detail">
       <div class="note-empty" v-show="!curNote.id">请选择笔记</div>
       <div class="note-detail-ct" v-show="curNote.id">
         <div class="note-bar">
+          <svg v-if="isMobile" @click="menuVisible = true" class="iconfont" aria-hidden="true">
+            <use xlink:href="#icon-arrow-left-bold"></use>
+          </svg>
           <span>创建日期：{{ curNote.createdAtFriendly }}</span>
           <span>更新日期：{{ curNote.updatedAtFriendly }}</span>
           <span>{{ statusText }}</span>
@@ -23,7 +26,6 @@
           <!--                    @keydown="statusText='正在输入...'" placeholder="输入内容，支持 markdown"/>-->
 
           <div class="preview markdown-body" v-html="previewContent" v-show="isShowPreview"></div>
-
         </div>
       </div>
     </div>
@@ -40,11 +42,16 @@ import 'codemirror/theme/neat.css'
 import 'codemirror/addon/display/placeholder.js'
 import {md} from '../lib/markdown-it'
 import {mapState, mapGetters, mapMutations, mapActions} from "vuex";
-
+import {inject, Ref} from 'vue'
 export default {
   components: {
     noteSidebar,
     codemirror
+  },
+  setup() {
+    const menuVisible = inject('menuVisible')
+    const isMobile = inject('isMobile')
+    return {menuVisible,isMobile}
   },
 
   data() {

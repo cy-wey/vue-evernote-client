@@ -16,7 +16,7 @@
         <span>回收站</span>
       </router-link>
     </div>
-    <div class="logout" title="注销登录" @click="onLogout">
+    <div v-if="!isMobile" class="logout" title="注销登录" @click="onLogout">
       <i class="iconfont icon-logout"></i>
     </div>
   </div>
@@ -25,8 +25,13 @@
 <script>
 import Avatar from "./Avatar";
 import {mapActions} from 'vuex'
-
+import {inject} from "vue";
 export default {
+  setup() {
+    const menuVisible = inject('menuVisible')
+    const isMobile = inject('isMobile')
+    return {menuVisible,isMobile}
+  },
   name: "Sidebar",
   components: {Avatar},
   methods: {
@@ -35,7 +40,6 @@ export default {
     ]),
     onLogout() {
       this.logout({path: '/login'})
-      console.log('logout')
     }
   }
 }
@@ -50,9 +54,10 @@ export default {
 
   @media (max-width: 800px) {
     width: 100%;
-    position: absolute;
     bottom: 0;
     height: 70px;
+    position: fixed;
+    z-index: 10;
   }
 
   .icons {
@@ -94,6 +99,7 @@ export default {
     .router-link-active {
       background-color: #5e6266;
       @media (max-width: 800px) {
+
         background-color: #2c333c;
         .iconfont {
           font-size: 26px;
@@ -112,16 +118,18 @@ export default {
     width: 100%;
     text-align: center;
     cursor: pointer;
-
-    //@media (max-width: 800px) {
-    //  position: fixed;
-    //  top: 12px;
-    //  right: 6px;
-    //  text-align: right;
-    //  .iconfont {
-    //    color: black;
-    //  }
-    //}
+    @media (max-width: 800px) {
+      display: none;
+      position: fixed;
+      top: 12px;
+      right: 6px;
+      text-align: right;
+      width: 20px;
+      height: 20px;
+      .iconfont {
+        color: black;
+      }
+    }
   }
 
   .iconfont {

@@ -1,24 +1,33 @@
 <template>
-  <span v-if="this.$route.path==='/notebooks' ? true : false" :title="username">{{ slug }}</span>
+  <span @click="onLogout" v-if="!isMobile || this.$route.path === '/notebooks'" :title="username">{{ slug }}</span>
 </template>
 
 <script>
 import {mapGetters, mapActions} from 'vuex'
+import {inject, Ref} from 'vue'
 
 export default {
+  setup() {
+    const menuVisible = inject('menuVisible')
+    const isMobile = inject('isMobile')
+    return {menuVisible, isMobile}
+  },
   data() {
-    return {
-    }
+    return {}
   },
   created() {
-    this.setUser()
+    this.logout({path: '/login'})
   },
   mounted() {
   },
   methods: {
-    ...mapActions({
-      'setUser':'checkLogin'
-    })
+    ...mapActions([
+      'checkLogin',
+      'logout'
+    ]),
+    onLogout() {
+      this.isMobile && this.logout({path: '/login'})
+    }
   },
 
   computed: {
@@ -49,7 +58,7 @@ span {
   @media (max-width: 800px) {
     position: fixed;
     top: 6px;
-    right: 30px;
+    right: 10px;
     margin: 0;
   }
 }
