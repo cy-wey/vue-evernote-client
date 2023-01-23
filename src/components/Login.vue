@@ -31,8 +31,6 @@
 </template>
 
 <script>
-import Auth from "../apis/auth";
-import Bus from '../helpers/bus';
 import {mapGetters,mapActions} from 'vuex'
 
 export default {
@@ -155,10 +153,17 @@ export default {
   transition: all .3s ease;
   font-family: Helvatica, Arial, sans-serif;
   display: flex;
+  @media(max-width: 800px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+  }
 
   .main {
     flex: 1;
-    background: #36bc64 url(//cloud.hunger-valley.com/17-12-13/38476998.jpg-middle) center center no-repeat;
+    background: #36bc64 url(//cloud.hunger-valley.com/17-12-13/38476998.jpg-middle) center no-repeat;
     background-size: contain;
   }
 
@@ -166,7 +171,10 @@ export default {
     width: 270px;
     border-left: 1px solid #ccc;
     overflow: hidden;
-
+    flex-grow: 1;
+    @media(max-width: 800px) {
+      width: 100%;
+    }
     h3 {
       padding: 10px 20px;
       margin-top: -1px;

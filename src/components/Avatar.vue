@@ -1,10 +1,8 @@
 <template>
-  <span :title="username">{{ slug }}</span>
+  <span v-if="this.$route.path==='/notebooks' ? true : false" :title="username">{{ slug }}</span>
 </template>
 
 <script>
-import Auth from "../apis/auth";
-import Bus from "../helpers/bus";
 import {mapGetters, mapActions} from 'vuex'
 
 export default {
@@ -14,6 +12,8 @@ export default {
   },
   created() {
     this.setUser()
+  },
+  mounted() {
   },
   methods: {
     ...mapActions({
@@ -31,7 +31,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 span {
   display: inline-block;
   width: 30px;
@@ -45,5 +45,12 @@ span {
   text-transform: uppercase;
   font-size: 18px;
   margin-top: 15px;
+
+  @media (max-width: 800px) {
+    position: fixed;
+    top: 6px;
+    right: 30px;
+    margin: 0;
+  }
 }
 </style>
