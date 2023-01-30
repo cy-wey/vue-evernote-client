@@ -105,7 +105,7 @@ export default {
       this.deleteNote({noteId: this.curNote.id})
         .then(() => {
           this.setCurNote()
-          this.$router.replace({
+          this.$router.push({
             path: '/note',
             query: {
               noteId: this.curNote.id,

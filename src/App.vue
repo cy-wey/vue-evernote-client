@@ -14,7 +14,8 @@ export default {
   name: 'App',
   components: {
     sidebar
-  }, setup() {
+  },
+  setup() {
     const width = document.documentElement.clientWidth;
     const menuVisible = ref(true);
     const isMobile = ref(width <= 800 ? true : false)

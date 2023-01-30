@@ -163,7 +163,7 @@ export default {
 
   .main {
     flex: 1;
-    background: #36bc64 url(//cloud.hunger-valley.com/17-12-13/38476998.jpg-middle) center no-repeat;
+    background: #36bc64 url(https://cdn.shopify.com/s/files/1/0903/2160/products/Maruman-Mnemosyne-Notebook-A5-Lined-2_3398aefa-4061-4434-b02e-aa0c7e24dace.jpg?v=1653450436) center no-repeat;
     background-size: contain;
   }
 
