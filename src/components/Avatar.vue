@@ -16,7 +16,7 @@ export default {
     return {}
   },
   created() {
-    this.logout({path: '/login'})
+    this.checkLogin({path:'/login'})
   },
   mounted() {
   },

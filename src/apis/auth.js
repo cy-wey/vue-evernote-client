@@ -15,6 +15,7 @@ export default {
     return request(URL.LOGIN, 'POST',{username,password})
   },
   logout() {
+    console.log(1)
     return request(URL.LOGOUT)
   },
   getInfo() {
