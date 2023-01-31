@@ -1,6 +1,6 @@
 <template>
   <div v-if="!isMobile || menuVisible" class="note-sidebar">
-    <span class="btn add-note" @click="onAddNote">添加笔记</span>
+    <span class="btn add-note" @click="onAddNote" >添加笔记</span>
     <el-dropdown class="notebook-title" @command="handleCommand" placement="bottom">
     <span class="el-dropdown-link">
       {{ curBook.title }}<i class="iconfont icon-down"></i>
@@ -90,6 +90,7 @@ export default {
       })
     },
     onAddNote() {
+      this.menuVisible = false
       this.addNote({notebookId: this.curBook.id})
         .then(()=> {
           this.setCurNote()

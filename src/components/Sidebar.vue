@@ -2,17 +2,16 @@
   <div id="sidebar">
     <avatar/>
     <div class="icons">
-
       <router-link to="/note/" title="笔记">
-        <i class="iconfont icon-note"></i>
+        <i class="iconfont icon-note" @click="menuVisible = true"></i>
         <span>笔记</span>
       </router-link>
       <router-link to="/notebooks" title="笔记本">
-        <i class="iconfont icon-notebook"></i>
+        <i class="iconfont icon-notebook" @click="menuVisible = true"></i>
         <span>笔记本</span>
       </router-link>
       <router-link to="/trash/" title="回收站">
-        <i class="iconfont icon-trash"></i>
+        <i class="iconfont icon-trash" @click="menuVisible = true"></i>
         <span>回收站</span>
       </router-link>
     </div>
